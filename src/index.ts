@@ -1,10 +1,9 @@
 import { PrismaClient } from '@prisma/client'
+import express from "express"
+import router from './routes'
 
+const app = express()
 const prisma = new PrismaClient()
 
-prisma.user.create({
-    data:{
-        name: "Benfica",
-        email: "benfica@gmail.com"
-    }
-})
+app.use(router)
+app.listen(8000)
