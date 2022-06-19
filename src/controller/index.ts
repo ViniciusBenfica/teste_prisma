@@ -1,17 +1,26 @@
 import { User } from "@prisma/client";
 import { Request, Response } from "express";
-import { create, find } from "../Repository";
+import { create, list, find } from "../Repository";
 
-export const list = async (req: Request, res: Response): Promise<User[] | object> => {
+export const listUser = async (req: Request, res: Response): Promise<User[] | object> => {
     try{
-        let userList = await find()
+        let userList = await list()
         return res.status(200).json(userList)
     }catch(error){
         return res.status(500).json("Error")
     }
 }
 
-export const post = async (req: Request, res: Response): Promise<User | object> => {
+export const findUser = async (req: Request, res: Response): Promise<User[] | object> => {
+    try{
+        let user = await find(parseInt(req.params.id))
+        return res.status(200).json(user)
+    }catch(error){
+        return res.status(500).json("Error")
+    }
+}
+
+export const createUser = async (req: Request, res: Response): Promise<User | object> => {
     try{
         let createUser = await create(req.body)
         return res.status(200).json(createUser)

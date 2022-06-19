@@ -4,10 +4,23 @@ import { Prisma } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export const find = async (): Promise<User[] | void> => {
+export const list = async (): Promise<User[] | void> => {
     try{
         let allUser = await prisma.user.findMany()
         return allUser
+    }catch(error){
+        console.log("Error")
+    }
+}
+
+export const find = async (id: number): Promise<User | void | null> => {
+    try{
+        let user = await prisma.user.findUnique({
+            where: {
+                id
+            }
+        })
+        return user
     }catch(error){
         console.log("Error")
     }

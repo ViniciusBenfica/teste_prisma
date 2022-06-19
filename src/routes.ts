@@ -1,11 +1,11 @@
 import { Router } from "express"
-import { list, post } from "./Controller"
+import { listUser, findUser, createUser } from "./Controller"
 
 const router: Router = Router()
 
-router.get("/list", list)
-router.get("/find/:id")
-router.post("/create", post)
+router.get("/list", listUser)
+router.get("/find/:id", findUser)
+router.post("/create", createUser)
 router.delete("/delete")
 router.patch("/update")
 
