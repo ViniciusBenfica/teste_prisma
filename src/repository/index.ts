@@ -11,5 +11,18 @@ export const find = async (): Promise<User[] | void> => {
     }catch(error){
         console.log("Error")
     }
+}
 
+export const create = async (user: User): Promise<User | void> => {
+    try{
+        let createUser = await prisma.user.create({
+            data: {
+                name: user.name,
+                email: user.email,
+            }
+        })
+        return createUser
+    }catch(error){
+        console.log("Error")
+    }
 }
