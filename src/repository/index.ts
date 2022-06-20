@@ -1,33 +1,32 @@
 import { PrismaClient } from '@prisma/client'
 import { User } from '../Types/Iuser'
-import { Prisma } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
 export const list = async (): Promise<User[] | void> => {
-    try{
+    try {
         let allUser = await prisma.user.findMany()
         return allUser
-    }catch(error){
+    } catch (error) {
         console.log("Error")
     }
 }
 
 export const find = async (id: number): Promise<User | void | null> => {
-    try{
+    try {
         let user = await prisma.user.findUnique({
             where: {
                 id
             }
         })
         return user
-    }catch(error){
+    } catch (error) {
         console.log("Error")
     }
 }
 
 export const create = async (user: User): Promise<User | void> => {
-    try{
+    try {
         let createUser = await prisma.user.create({
             data: {
                 name: user.name,
@@ -35,7 +34,20 @@ export const create = async (user: User): Promise<User | void> => {
             }
         })
         return createUser
-    }catch(error){
+    } catch (error) {
+        console.log("Error")
+    }
+}
+
+export const deleteUser = async (id: number): Promise<string | void> => {
+    try {
+        await prisma.user.delete({
+            where: {
+                id
+            }
+        })
+        return `User ${id} deleted`
+    } catch (error) {
         console.log("Error")
     }
 }

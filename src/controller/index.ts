@@ -1,6 +1,6 @@
 import { User } from "@prisma/client";
 import { Request, Response } from "express";
-import { create, list, find } from "../Repository";
+import { create, list, find, deleteUser } from "../Repository";
 
 export const listUser = async (req: Request, res: Response): Promise<User[] | object> => {
     try{
@@ -24,6 +24,15 @@ export const createUser = async (req: Request, res: Response): Promise<User | ob
     try{
         let createUser = await create(req.body)
         return res.status(200).json(createUser)
+    }catch(error){
+        return res.status(500).json("Error")
+    }
+}
+
+export const userDelete = async (req: Request, res: Response) => {
+    try{
+        let user = await deleteUser(parseInt(req.body.id))
+        return res.status(200).json({message: user})
     }catch(error){
         return res.status(500).json("Error")
     }
