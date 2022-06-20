@@ -58,7 +58,7 @@ export const update = async (id: number, user: User): Promise<User | void> => {
             where: {
                 id
             },
-            data:{
+            data: {
                 name: user.name,
                 email: user.email
             }
