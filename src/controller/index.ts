@@ -1,6 +1,6 @@
 import { User } from "@prisma/client";
 import { Request, Response } from "express";
-import { create, list, find, deleteUser } from "../Repository";
+import { create, list, find, deleteUser, update } from "../Repository";
 
 export const listUser = async (req: Request, res: Response): Promise<User[] | object> => {
     try{
@@ -29,10 +29,19 @@ export const createUser = async (req: Request, res: Response): Promise<User | ob
     }
 }
 
-export const userDelete = async (req: Request, res: Response) => {
+export const userDelete = async (req: Request, res: Response): Promise<object> => {
     try{
-        let user = await deleteUser(parseInt(req.body.id))
-        return res.status(200).json({message: user})
+        let userDelete = await deleteUser(parseInt(req.body.id))
+        return res.status(200).json({message: userDelete})
+    }catch(error){
+        return res.status(500).json("Error")
+    }
+}
+
+export const updateUser = async (req: Request, res: Response): Promise<User | object> => {
+    try{
+        let updateUser = await update(parseInt(req.params.id), req.body)
+        return res.status(200).json(updateUser)
     }catch(error){
         return res.status(500).json("Error")
     }

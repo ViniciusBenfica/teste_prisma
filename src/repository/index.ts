@@ -51,3 +51,20 @@ export const deleteUser = async (id: number): Promise<string | void> => {
         console.log("Error")
     }
 }
+
+export const update = async (id: number, user: User): Promise<User | void> => {
+    try {
+        let userUpdate = await prisma.user.update({
+            where: {
+                id
+            },
+            data:{
+                name: user.name,
+                email: user.email
+            }
+        })
+        return userUpdate
+    } catch (error) {
+        console.log("Error")
+    }
+}
